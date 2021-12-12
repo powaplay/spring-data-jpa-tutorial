@@ -1,5 +1,6 @@
 package com.powaplaydev.springdatajpatutorial.repository;
 
+import com.powaplaydev.springdatajpatutorial.entity.Guardian;
 import com.powaplaydev.springdatajpatutorial.entity.Student;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +27,27 @@ class StudentRepositoryTest {
                 .emailId("apawel63@gmail.com")
                 .firstName("Alex")
                 .lastName("Pawelczyk")
-                .guardianName("Jan Pawelczyk")
-                .guardianEmail("jpawel0123@hotmail.com")
-                .guardianMobile("5863370195")
+                //.guardianName("Jan Pawelczyk")
+                //.guardianEmail("jpawel0123@hotmail.com")
+                //.guardianMobile("5863370195")
+                .build();
+
+        studentRepository.save(student);
+    }
+
+    @Test
+    public void saveStudentWithGuardian() {
+        Guardian guardian = Guardian.builder()
+                .name("Renata Pawelczyk")
+                .email("rpawel0123@gmail.com")
+                .mobile("5863376722")
+                .build();
+
+        Student student = Student.builder()
+                .emailId("apawel64@gmail.com")
+                .firstName("Alex")
+                .lastName("Pawelczyk")
+                .guardian(guardian)
                 .build();
 
         studentRepository.save(student);
