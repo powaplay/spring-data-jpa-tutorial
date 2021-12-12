@@ -5,6 +5,7 @@ import com.powaplaydev.springdatajpatutorial.entity.Student;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
@@ -57,5 +58,50 @@ class StudentRepositoryTest {
     public void printAllStudent() {
         List<Student> studentList = studentRepository.findAll();
         System.out.println("Student list: " + studentList);
+    }
+
+    @Test
+    public void printStudentByFirstName() {
+        List<Student> studentList = studentRepository.findByFirstName("Alex");
+        System.out.println("Student list: " + studentList.toString());
+    }
+
+    @Test
+    public void printStudentByFirstNameContaining() {
+        List<Student> studentList = studentRepository.findByFirstNameContaining("B");
+        System.out.println("Student list: " + studentList.toString());
+    }
+
+    @Test
+    public void printStudentByGuardianName() {
+        List<Student> studentList = studentRepository.findByGuardianName("Jan Pawelczyk");
+        System.out.println("Student list: " + studentList.toString());
+    }
+
+
+    // Testing custom JPQL query
+    @Test
+    public void printStudentByEmailAddress() {
+        Student student = studentRepository.getStudentByEmailAddress("apawel63@gmail.com");
+        System.out.println("Student: " + student);
+
+    }
+
+    @Test
+    public void printStudentFirstNameByEmailAddress() {
+        String studentFirstName = studentRepository.getStudentFirstNameByEmailAddress("apawel63@gmail.com");
+        System.out.println("Student: " + studentFirstName);
+    }
+
+    @Test
+    public void printGetStudentByEmailAddressNative() {
+        Student student = studentRepository.getStudentByEmailAddressNative("apawel63@gmail.com");
+        System.out.println("Student: " + student);
+    }
+
+    @Test
+    public void getStudentByEmailAddressNativeNamedParam() {
+        Student student = studentRepository.getStudentByEmailAddressNativeNamedParam("apawel63@gmail.com");
+        System.out.println("Student: " + student);
     }
 }
